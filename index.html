@@ -3,72 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tweet Storm</title>
+    <title>Apex Tweet Storm</title>
+    <meta name="description" content="Generate engaging Twitter threads instantly with AI.">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; }
-        .container { max-width: 768px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="container bg-white shadow-lg rounded-lg p-8 space-y-6">
-        <h1 class="text-4xl font-bold text-center text-gray-800">AI Tweet Storm</h1>
-        <p class="text-center text-gray-600">Turn your idea into an engaging Twitter thread instantly.</p>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">Tweet Storm Generator</h1>
+        <p class="text-center text-gray-600 mb-6">Craft engaging Twitter threads instantly with AI.</p>
         
-        <textarea id="ideaInput" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="6" placeholder="Enter your core idea for a tweet storm..."></textarea>
-        
-        <button id="generateButton" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition duration-300">
-            Generate Tweet Storm ($9.99)
-        </button>
+        <form id="tweetForm" class="space-y-4">
+            <textarea id="ideaInput" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="What's your big idea or topic?" required></textarea>
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Generate Storm
+            </button>
+        </form>
 
-        <div id="outputSection" class="hidden mt-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Tweet Storm:</h2>
-            <div id="tweetOutput" class="bg-gray-50 p-4 border border-gray-200 rounded-md whitespace-pre-wrap"></div>
-            <div class="mt-4 flex space-x-4">
-                <button id="copyButton" class="flex-1 bg-green-500 text-white font-semibold py-2 rounded-md hover:bg-green-600 transition duration-300">Copy to Clipboard</button>
-                <a id="tweetNowLink" href="#" target="_blank" class="flex-1 text-center bg-blue-400 text-white font-semibold py-2 rounded-md hover:bg-blue-500 transition duration-300">Tweet Now</a>
-            </div>
+        <div id="results" class="mt-6 space-y-4 hidden">
+            <h2 class="text-xl font-semibold text-gray-700">Your Tweet Storm:</h2>
+            <div id="tweetOutput" class="bg-gray-100 p-4 rounded-md text-gray-800 whitespace-pre-wrap"></div>
+            <button onclick="copyTweets()" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition duration-200 mt-2">
+                Copy Tweets
+            </button>
         </div>
 
-        <div id="loadingSpinner" class="hidden text-center mt-4">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-            <p class="mt-2 text-gray-500">Generating...</p>
-        </div>
-
-        <p class="text-center text-sm text-gray-500 mt-6">Secured by Stripe for payments.</p>
+        <p class="text-center text-gray-500 text-sm mt-8">
+            Free generations available. <a href="#" class="text-blue-600 hover:underline">Upgrade for more!</a>
+        </p>
     </div>
+
     <script>
-      // Placeholder for frontend logic. Actual logic would involve API calls to a backend.
-      document.getElementById('generateButton').addEventListener('click', async () => {
-          const idea = document.getElementById('ideaInput').value;
-          if (!idea) { alert('Please enter an idea!'); return; }
+        document.getElementById('tweetForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const idea = document.getElementById('ideaInput').value;
+            const generateBtn = e.target.querySelector('button');
+            generateBtn.textContent = 'Generating...';
+            generateBtn.disabled = true;
 
-          document.getElementById('generateButton').classList.add('hidden');
-          document.getElementById('loadingSpinner').classList.remove('hidden');
-          document.getElementById('outputSection').classList.add('hidden');
+            // In a real app, this would be an API call to your backend
+            // const response = await fetch('/api/generate-tweet-storm', { method: 'POST', body: JSON.stringify({ idea }), headers: { 'Content-Type': 'application/json' } });
+            // const data = await response.json();
+            
+            // Mock data for demonstration
+            const mockTweets = `1/ We're launching AI Tweet Storm!
 
-          // Simulate API call and Stripe checkout
-          // In a real app, this would initiate a Stripe checkout session
-          // and then on success, call your backend to generate the storm.
-          await new Promise(resolve => setTimeout(resolve, 2000)); 
-          const dummyStorm = "1/ We all struggle with content creation. 😩\n\n2/ Imagine turning a single idea into a full, engaging *tweet storm* in seconds. That's what AI Tweet Storm does! 🚀\n\n3/ No more writer's block, no more endless drafting. Just coherent, attention-grabbing threads. ✨\n\n4/ What's your biggest content challenge? Let us know below! 👇 #AItools #TweetStorm #ContentCreator";
-          
-          document.getElementById('tweetOutput').textContent = dummyStorm;
-          document.getElementById('tweetNowLink').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(dummyStorm)}`;
+It helps content creators, marketers, & entrepreneurs generate engaging Twitter threads from a single idea quickly 🚀
 
-          document.getElementById('loadingSpinner').classList.add('hidden');
-          document.getElementById('outputSection').classList.remove('hidden');
-          document.getElementById('generateButton').classList.remove('hidden');
-      });
+#AI #SaaS #Twitter
 
-      document.getElementById('copyButton').addEventListener('click', () => {
-          const output = document.getElementById('tweetOutput').textContent;
-          navigator.clipboard.writeText(output).then(() => {
-              alert('Tweet storm copied to clipboard!');
-          }).catch(err => {
-              console.error('Failed to copy: ', err);
-          });
-      });
+2/ Ever struggled to turn a thought into a full thread? This tool is for you.
+
+Input your topic, and our AI crafts a cohesive, tweet-by-tweet storm designed for maximum engagement.
+
+Save time, grow your audience. 👇
+
+3/ Get a few free generations to start. 
+
+Like what you see? Unlock unlimited potential with our affordable pricing plan.
+
+Revolutionize your Twitter strategy today! ✨
+
+4/ Try AI Tweet Storm now and elevate your Twitter game! [Link to your app]`;
+
+            document.getElementById('tweetOutput').textContent = mockTweets;
+            document.getElementById('results').classList.remove('hidden');
+
+            generateBtn.textContent = 'Generate Storm';
+            generateBtn.disabled = false;
+        });
+
+        function copyTweets() {
+            const tweetOutput = document.getElementById('tweetOutput');
+            navigator.clipboard.writeText(tweetOutput.textContent)
+                .then(() => alert('Tweets copied to clipboard!'))
+                .catch(err => console.error('Failed to copy text: ', err));
+        }
     </script>
 </body>
 </html>
