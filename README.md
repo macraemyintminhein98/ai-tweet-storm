@@ -1,3 +1,3 @@
-# AI Tweet Storm Generator
+# AI Tweet Storm
 
-Quickly generate engaging Twitter threads from a single idea using AI. Perfect for marketers, creators, and indie hackers looking to boost their Twitter presence. Just input your idea, pay a small fee, and get a ready-to-post tweet storm with a call to action. You can copy it or tweet it directly. Built with a focus on simplicity and speed.
+Generate engaging Twitter threads instantly with AI. Simply input your idea, and our AI crafts a cohesive and captivating tweet storm, perfect for content creators, marketers, and entrepreneurs. Get a few free generations, then pay for more engagement. #AISaaS #TweetGenerator
